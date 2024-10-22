@@ -15,7 +15,6 @@ This project is a Blazor WebAssembly application for managing a collection of bo
 ## Technologies Used
 
 - **Blazor WebAssembly**: For building the client-side application.
-- **ASP.NET Core**: For building the backend API.
 - **FluentORM**: For database interactions.
 - **HTML/CSS**: For structuring and styling the application.
 
