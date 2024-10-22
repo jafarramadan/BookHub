@@ -18,3 +18,7 @@ This project is a Blazor WebAssembly application for managing a collection of bo
 - **FluentORM**: For database interactions.
 - **HTML/CSS**: For structuring and styling the application.
 
+## Demo
+  
+![BookHub](https://github.com/user-attachments/assets/25a61e41-f49f-42ef-8886-7bdc5c4ad140)
+
