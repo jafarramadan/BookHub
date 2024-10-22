@@ -46,7 +46,7 @@ namespace BlazorApp2.Client.Services
         }
         public async Task<BookModel> GetBookByIdAsync(int id)
         {
-            var response = await _httpClient.GetFromJsonAsync<BookModel>($"api/book/getbookbyid/{id}");
+            var response = await _httpClient.GetFromJsonAsync<BookModel>($"api/book/GetBookById/{id}");
             return response;
         }
     }

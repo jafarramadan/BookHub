@@ -20,13 +20,33 @@ namespace JLibrary.Server.Controllers
 
         // GET: api/books
         [HttpGet]
-        //[Route("ahmed")]
+       
         public IActionResult GetAllBooks()
         {
             try
             {
                 var books = _bookContext.Select().Execute();
                 return Ok(books);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+        // GET: api/book/getbookbyid/{id}
+        [HttpGet("{id}")]
+        public IActionResult GetBookById(int id)
+        {
+            try
+            {
+                var book = _bookContext.Select().Where(b => b.Eq(m => m.BookId, id)).Execute().FirstOrDefault();
+
+                if (book == null)
+                {
+                    return NotFound($"Book with id {id} not found.");
+                }
+
+                return Ok(book);
             }
             catch (Exception ex)
             {
@@ -68,13 +88,14 @@ namespace JLibrary.Server.Controllers
                 var updateResult = _bookContext
                     .Update()
                     .Where(b => b.Eq(m => m.BookId, id))
+                    .WithFields(a=> a.ExcludeAll().FromField(m=>m.Title).FromField(m=>m.Author).FromField(m => m.PublishedYear).FromField(m => m.Quantity))
                     .Execute(book);
 
                 if (updateResult == null)
                 {
                     return NotFound($"Book with id {id} not found.");
                 }
-
+                var updatedCourse = _bookContext.Select().Where(m => m.Eq(f => f.BookId, id)).Execute().FirstOrDefault();
                 return Ok(book);
             }
             catch (Exception ex)
