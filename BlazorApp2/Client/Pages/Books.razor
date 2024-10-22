@@ -5,7 +5,7 @@
 @inject NavigationManager navigation
 
 <h3>Books</h3>
-<button @onclick="navigateToCreate">Add Book</button>
+<button class="btn btn-primary mb-3" @onclick="navigateToCreate">Add Book</button>
 
 @if (books == null)
 {
@@ -25,7 +25,7 @@ else
                 <th>Author</th>
                 <th>Published Year</th>
                 <th>Quantity</th>
-                <th>Actions</th> 
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -38,8 +38,8 @@ else
                     <td>@(book.PublishedYear.HasValue ? book.PublishedYear.ToString() : "N/A")</td>
                     <td>@(book.Quantity.HasValue ? book.Quantity.ToString() : "N/A")</td>
                     <td>
-                        <button @onclick="()=>OnDelete(book.BookId)">Delete</button>
-                        <button @onclick="()=>NavigateToEdit(book.BookId)">Edit</button> 
+                        <button class="btn btn-danger btn-sm" @onclick="()=>OnDelete(book.BookId)">Delete</button>
+                        <button class="btn btn-success btn-sm ms-2" @onclick="()=>NavigateToEdit(book.BookId)">Edit</button>
                     </td>
                 </tr>
             }
@@ -58,12 +58,12 @@ else
     protected async Task OnDelete(int id)
     {
         await bookservice.DeleteBookAsync(id);
-        await OnInitializedAsync(); 
+        await OnInitializedAsync();
     }
 
     protected void navigateToCreate()
     {
-        navigation.NavigateTo("/books/add"); 
+        navigation.NavigateTo("/books/add");
     }
 
     protected void NavigateToEdit(int id)
