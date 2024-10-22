@@ -1,0 +1,77 @@
+﻿@page "/books/add"
+@page "/books/edit/{id:int}"
+
+@inject Ibook bookservice
+@inject NavigationManager navigation
+@using BlazorApp2.Client.Services
+@using BlazorApp2.Shared
+
+<h3>@(id == 0 ? "Add Book" : "Edit Book")</h3>
+
+<EditForm Model="book" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label for="title">Title:</label>
+        <InputText id="Title" @bind-Value="book.Title" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="author">Author:</label>
+        <InputText id="Author" @bind-Value="book.Author" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="publishedYear">Published Year:</label>
+        <InputNumber id="PublishedYear" @bind-Value="book.PublishedYear" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="quantity">Quantity:</label>
+        <InputNumber id="Quantity" @bind-Value="book.Quantity" class="form-control" />
+    </div>
+
+    <div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="button" class="btn btn-secondary" @onclick="GoBack">Back</button> <!-- Back button -->
+    </div>
+</EditForm>
+
+@code {
+    [Parameter] public int id { get; set; }
+
+    private BookModel book = new BookModel();
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (id != 0) 
+        {
+            book = await bookservice.GetBookByIdAsync(id);
+            if (book == null)
+            {
+                
+                navigation.NavigateTo("/books");
+            }
+        }
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        if (id == 0)
+        {
+            await bookservice.AddBookAsync(book);
+        }
+        else
+        {
+            await bookservice.UpdateBookAsync(id, book);
+        }
+
+        navigation.NavigateTo("/books"); 
+    }
+
+    private void GoBack()
+    {
+        navigation.NavigateTo("/books");
+    }
+}
