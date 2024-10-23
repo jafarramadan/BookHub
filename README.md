@@ -19,6 +19,9 @@ This project is a Blazor WebAssembly application for managing a collection of bo
 - **HTML/CSS**: For structuring and styling the application.
 
 ## Demo
-  
-![BookHub](https://github.com/user-attachments/assets/25a61e41-f49f-42ef-8886-7bdc5c4ad140)
+![home](https://github.com/user-attachments/assets/ad445ba4-c455-4477-80b0-09bdc6da6389)
+
+![BookList](https://github.com/user-attachments/assets/d6aac384-ab92-475b-a15f-fbfac2293c7b)
+
+![editbook](https://github.com/user-attachments/assets/f86ae17e-e376-484e-b47f-37ed1548153c)
 
