@@ -1,0 +1,48 @@
+﻿@page "/authors"
+@using BlazorApp2.Client.Services
+@using BlazorApp2.Shared
+@inject IAuthorService authorService
+@inject NavigationManager navigation
+
+<h3>Authors List</h3>
+
+@if (authors == null)
+{
+    <p><em>Loading...</em></p>
+}
+else if (authors.Count == 0)
+{
+    <p>No authors found.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Author ID</th>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var author in authors)
+            {
+                <tr>
+                    <td>@author.AuthorId</td>
+                    <td>@author.Name</td>
+                    
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<AuthorModel> authors;
+
+    protected override async Task OnInitializedAsync()
+    {
+        authors = await authorService.GetAllAuthorsAsync(); // Fetch authors from the service
+    }
+   
+}

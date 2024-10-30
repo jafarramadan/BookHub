@@ -22,7 +22,7 @@ namespace BlazorApp2.Client.Services
 
         public async Task<List<BookModel>> GetBooksAsync()
         {
-           return  await _httpClient.GetFromJsonAsync<List<BookModel>>("api/book/getallbooks");
+            return await _httpClient.GetFromJsonAsync<List<BookModel>>("api/book/getallbooks");
         }
 
         public async Task<BookModel> AddBookAsync(BookModel book)

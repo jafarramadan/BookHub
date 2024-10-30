@@ -22,7 +22,7 @@ else
             <tr>
                 <th>Book ID</th>
                 <th>Title</th>
-                <th>Author</th>
+                <th>AuthorId</th>
                 <th>Published Year</th>
                 <th>Quantity</th>
                 <th>Actions</th>
@@ -34,7 +34,7 @@ else
                 <tr>
                     <td>@book.BookId</td>
                     <td>@book.Title</td>
-                    <td>@book.Author</td>
+                    <td>@book.AuthorId</td>
                     <td>@(book.PublishedYear.HasValue ? book.PublishedYear.ToString() : "N/A")</td>
                     <td>@(book.Quantity.HasValue ? book.Quantity.ToString() : "N/A")</td>
                     <td>
