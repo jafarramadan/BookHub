@@ -1,3 +1,4 @@
+using BlazorApp2.Server.Repository;
 using JLibrary.Server.Repository;
 using Microsoft.AspNetCore.ResponseCompression;
 
@@ -13,6 +14,8 @@ namespace BlazorApp2
 
             // Register your custom StudentContext as a scoped service.
             builder.Services.AddScoped<BooksContext>(provider => new BooksContext(connectionString));
+            builder.Services.AddScoped<AuthorsContext>(provider => new AuthorsContext(connectionString));
+
             // Add services to the container.
 
             builder.Services.AddControllersWithViews();

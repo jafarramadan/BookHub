@@ -1,7 +1,7 @@
 ﻿@page "/books/add"
 @page "/book/GetBookById/{id:int}"
-@* ($"/book/GetBookById/{id}"); *@
-@inject Ibook bookservice
+@inject Ibook bookService
+@inject IAuthorService authorService // Assuming you have an IAuthorService to fetch authors
 @inject NavigationManager navigation
 @using BlazorApp2.Client.Services
 @using BlazorApp2.Shared
@@ -18,8 +18,16 @@
     </div>
 
     <div class="form-group">
-        <label for="author">Author:</label>
-        <InputText id="Author" @bind-Value="book.Author" class="form-control" />
+        <label for="authorId">Author:</label>
+        <InputSelect id="AuthorId" @bind-Value="book.AuthorId" class="form-control">
+            <option value="">Select an Author</option>
+            @foreach (var author in authors)
+            {
+                <option value="@author.AuthorId">@author.Name</option>
+            }
+        </InputSelect>
+
+
     </div>
 
     <div class="form-group">
@@ -31,10 +39,11 @@
         <label for="quantity">Quantity:</label>
         <InputNumber id="Quantity" @bind-Value="book.Quantity" class="form-control" />
     </div>
+    
 
     <div>
         <button type="submit" class="btn btn-primary">Submit</button>
-        <button type="button" class="btn btn-secondary" @onclick="GoBack">Back</button> <!-- Back button -->
+        <button type="button" class="btn btn-secondary" @onclick="GoBack">Back</button>
     </div>
 </EditForm>
 
@@ -42,32 +51,35 @@
     [Parameter] public int id { get; set; }
 
     private BookModel book = new BookModel();
+    private List<AuthorModel> authors = new List<AuthorModel>(); // List to hold authors
 
     protected override async Task OnInitializedAsync()
     {
-        if (id != 0) 
+        authors = await authorService.GetAllAuthorsAsync(); // Fetch authors from the service
+        Console.WriteLine($"Authors Count: {authors.Count}"); // Debug line to check authors
+        if (id != 0)
         {
-            book = await bookservice.GetBookByIdAsync(id);
+            book = await bookService.GetBookByIdAsync(id);
             if (book == null)
             {
-                
                 navigation.NavigateTo("/books");
             }
         }
     }
 
+
     private async Task HandleValidSubmit()
     {
         if (id == 0)
         {
-            await bookservice.AddBookAsync(book);
+            await bookService.AddBookAsync(book);
         }
         else
         {
-            await bookservice.UpdateBookAsync(id, book);
+            await bookService.UpdateBookAsync(id, book);
         }
 
-        navigation.NavigateTo("/books"); 
+        navigation.NavigateTo("/books");
     }
 
     private void GoBack()

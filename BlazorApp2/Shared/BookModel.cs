@@ -16,13 +16,17 @@ namespace BlazorApp2.Shared
 
         [FluentField(name: "Title", allowNull: false)]
         public string Title { get; set; } = string.Empty;
-        [FluentField(name: "Author", allowNull: false)]
-        public string Author { get; set; } = string.Empty;
+
+        // Foreign key reference to AuthorId
+        [FluentField(name: "AuthorId", allowNull: false)]
+        public int AuthorId { get; set; }
 
         [FluentField(name: "PublishedYear", allowNull: true)]
         public int? PublishedYear { get; set; }
+
         [FluentField(name: "Quantity", allowNull: true)]
         public int? Quantity { get; set; }
 
+       
     }
 }
